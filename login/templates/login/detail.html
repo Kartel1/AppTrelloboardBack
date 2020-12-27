@@ -1,0 +1,106 @@
+{% extends 'login/base.html' %}
+{% block title %}  MonProfil {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Mes informations</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="#">
+            <img src="{{ personne.user_logo.url }} " class="img-rounded" alt="Avatar" width="300">
+        </li>
+        <li><b>Pseudo: {{ personne.usager.username }}</b></li>
+        <li>Adresse mail: {{ personne.usager.email }}</li>
+        <li>Mes informations: {{ personne.user_infos }}</li>
+      </ul><br>
+      {% if request.user == personne.usager %}
+      <a href="{% url 'login:user-update' personne.slug %}" class="btn btn-info" role="button">Modifier mes infos</a>
+      {% endif %}
+    </div>
+
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-7 sidenav">
+        <h4>Mes fichiers</h4>
+        <div class="table-responsive" id="fileTab">
+        <table class="table" style="background-color: white">
+          <thead>
+            <tr>
+              <th>Nom du fichier</th>
+                <th>Description</th>
+              <th>Date d'ajout</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for doc in personne.doc_set.all %}
+            <tr>
+                <td><a href="/media/{{ doc.fichier_file }}" target="_blank" > {{doc.fichier_titre}} </a></td>
+                <td>{{ doc.fichier_description }}</td>
+                <td>{{ doc.date }}</td>
+                {% if request.user == personne.usager %}
+                {% csrf_token %}
+                <td></td>
+                <td>
+                    <form action="{% url 'login:file-delete' doc.id %}" method="POST" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="doc_id" value="{{ doc.id }}" />
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <script type="text/javascript"> <!-- ce code javascript permet d'ajouter les numéros de ligne au tableau -->
+        (function ($) {
+            $.fn.extend({
+                tableAddCounter: function (options) {
+
+                    // set up default options
+                    var defaults = {
+                        title: '#',
+                        start: 1,
+                        id: false,
+                        cssClass: false
+                    };
+
+                    // Overwrite default options with user provided
+                    var options = $.extend({}, defaults, options);
+
+                    return $(this).each(function () {
+                        // Make sure this is a table tag
+                        if ($(this).is('table')) {
+
+                            // Add column title unless set to 'false'
+                            if (!options.title) options.title = '';
+                            $('th:first-child, thead td:first-child', this).each(function () {
+                                var tagName = $(this).prop('tagName');
+                                $(this).before('<' + tagName + ' rowspan="' + $('thead tr').length + '" class="' + options.cssClass + '" id="' + options.id + '">' + options.title + '</' + tagName + '>');
+                            });
+
+                            // Add counter starting counter from 'start'
+                            $('tbody td:first-child', this).each(function (i) {
+                                $(this).before('<td>' + (options.start + i) + '</td>');
+                            });
+
+                        }
+                    });
+                }
+            });
+        })(jQuery);
+
+        $(document).ready(function () {
+            $('.table').tableAddCounter();
+            $.getScript("http://code.jquery.com/ui/1.9.2/jquery-ui.js").done(function (script, textStatus) { $('tbody').sortable();$(".alert-info").alert('close');$(".alert-success").show(); });
+        });
+        </script>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

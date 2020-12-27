@@ -1,0 +1,39 @@
+#chat-bottom {
+    position: fixed;
+    bottom: 10px;
+    padding: 2%;
+}
+
+.panel-body {
+    overflow-y: auto scroll;
+    position: absolute;
+    overflow: auto;
+    -webkit-overflow-scrolling:touch;
+
+}
+
+.panel-default{
+
+    margin: auto;
+
+}
+
+#media-right{
+
+    border: 1px solid #ffb3b3;
+
+}
+
+#media-left{
+
+    border: 1px solid #99ddff;
+
+
+}
+#chat-body{
+
+
+
+}
+
+

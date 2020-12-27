@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.disableInstallationCheck": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins\", \"pylint_django"
+    ],
+}

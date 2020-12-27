@@ -1,0 +1,28 @@
+body {
+    background: white url("image/bx45.png");
+    background-size: auto auto;
+
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.navbar-brand{
+    font-family: 'Montserrat Subrayada', sans-serif;
+}
+
+.fileTab{
+
+    max-width: 10%;
+
+
+}
+
+#oth-user{
+
+    font-family: 'Montserrat Subrayada', sans-serif;
+    text-align: left;
+    font-size: 2em;
+
+}

@@ -1,0 +1,65 @@
+{% extends 'login/base.html' %}
+{% block title %} Chat {% endblock %}
+{% block head %}
+    {% load static %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'chat/chat.css' %}">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="chat-body" class="panel panel-default">
+        <div class="panel-heading">Chat Box</div>
+        <div id="msg-list-div" class="container">
+              <div class = "media" id="msg-list">
+                {% for obj in chat %}
+
+                {% if obj.user.usager == request.user %}
+                <div class="media" id="media-right">
+                    <div class="media-right">
+                    <img src="{{ obj.usager.user_logo.url }}" class="media-object" style="width:80px">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ obj.user }}</h4>
+                        <p>{{ obj.message }}</p>
+                    </div>
+                </div>
+                    {% else %}
+                    <div class="media">
+                        <div class="media-left" id="media-left">
+                        <img src="{{ obj.usager.user_logo.url }}" class="media-object" style="width:80px">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ obj.user }}</h4>
+                            <p>{{ obj.message }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+                {% empty %}
+
+                  <p>No messages yet!</p>
+                {% endfor %}
+                <script>
+                    var chatlist = document.getElementById('msg-list-div');
+                    chatlist.scrollTop = chatlist.scrollHeight;
+                </script>
+            </div>
+        </div>
+    </div>
+    <form id="chat-form" method="post" action="/post/">
+        <div id="chat-bottom" class="input-group">
+            <input type="text" id="chat-msg" name="chat-msg" class="form-control"/>
+            <span class="input-group-btn">
+                <input class="btn btn-default" id="send" type="submit" value="Send"/>
+            </span>
+        </div>
+    </form>
+
+<script src="{% static 'chat/chat.js' %}"></script>
+{% endblock %}

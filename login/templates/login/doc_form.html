@@ -1,0 +1,25 @@
+{% extends 'login/base.html' %}
+{% block title %} Ajout d'un fichier{% endblock %}
+{% block doc_active %} active {% endblock %}
+
+{% block body %}
+<div class="col-sm-offset-1 col-sm-10">
+<br/>
+    <h2>Ajouter un fichier</h2>
+    <br/>
+    <br/>
+    </div>
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'login/form-temp.html' %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Enregistrement</button>
+            <a href="{% url 'login:connexion' %}" class="btn btn-info" role="button">Annuler</a>
+
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

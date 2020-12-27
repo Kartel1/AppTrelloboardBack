@@ -1,0 +1,27 @@
+
+{% for obj in chat %}
+    {% if obj.user.usager == request.user %}
+          <div class="media" id="media-right">
+                <div class="media-body">
+                    <h4 class="media-heading">{{ obj.user }}</h4>
+                    <p>{{ obj.message }}</p>
+                </div>
+              <div class="media-right">
+              <img src="{{ obj.user.user_logo.url }}" class="media-object" style="width:80px">
+            </div>
+              </div>
+            {% else %}
+             <div class="media" id="media-left">
+                  <div class="media-left">
+                    <img src="{{ obj.user.user_logo.url }}" class="media-object" style="width:80px">
+                    </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ obj.user }}</h4>
+                    <p>{{ obj.message }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% empty %}
+                <p>No messages yet!</p>
+
+            {% endfor %}

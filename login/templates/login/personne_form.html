@@ -1,0 +1,18 @@
+{% extends 'login/base.html' %}
+{% block title %} Modification Profil{% endblock %}
+
+{% block body %}
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'login/form-template.html' %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Enregistrement</button>
+            <a href="{% url 'login:detail' personne.slug %}" class="btn btn-info" role="button">Annuler</a>
+
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

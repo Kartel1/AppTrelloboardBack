@@ -1,0 +1,42 @@
+{% extends 'login/base.html' %}
+{% block title %}  Accueil {% endblock %}
+
+{% block body %}
+{% load static %}
+<br/>
+
+
+<h1>
+    Bienvenue sur la Webapp du PA10 SYSICO
+    <br/>{{ user.personne_set.get }}
+</h1>
+
+<button type="button" onclick="location.href='{% url 'trelloBoard:refresh' %}'" class="btn btn-default">Connexion à
+    Trello
+</button>
+
+{% csrf_token %}
+<button id="refresh-button" type="button" class="btn btn-default" data-url="{% url 'trelloBoard:update' %}">Rafraichir depuis Trello</button>
+<script src="{% static 'login/refresh.js' %}"></script>
+<img src="/media/sysico.jpg" id="img-sys" class="img-responsive" alt="Avatar">
+<div class="right" id="test">
+    <div class="table-responsive" id="user-tab">
+        <table class="table" style="background-color: light-grey">
+            <thead>
+            <tr>
+                <th>Autres Utilisateurs</th>
+            </thead>
+            <tbody>
+            {% for personne in all_personne %}
+            {% if personne.usager != request.user %}
+            <tr>
+                <td><a href="{% url 'login:detail' personne.slug %}" id="oth-user">{{ personne }}</a></td>
+
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock%}

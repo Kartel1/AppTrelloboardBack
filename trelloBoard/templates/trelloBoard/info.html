@@ -1,0 +1,51 @@
+{% extends 'login/base.html' %}
+{% block title %}  Trello Board {% endblock %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'trelloBoard/trelloBoardStyle.css' %}"/>
+{% endblock %}
+
+
+{% block body %}
+<br/>
+
+
+<h1>
+    Bienvenue sur la vue Tableaux Trello
+    <br/>{{ user.personne_set.get }}
+</h1>
+<div class="right" id="test">
+    <div class="dropdown" id="dropdown-organizations">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Equipes Trello
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item" id="default-dropdown-organizations-item"><a href="#">----</a></li>
+            {% for organization in all_organizations %}
+            <li class="dropdown-item"><a href="#">{{ organization }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+     <div class="dropdown" id="dropdown-sprints">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sprints
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item" id="default-dropdown-sprints-item"><a href="#">----</a></li>
+            {% for sprint in all_sprints %}
+            <li class="dropdown-item"><a href="#">{{ sprint }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="dropdown" id="dropdown-boards">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tableaux Trello
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item" id="default-dropdown-boards-item"><a href="#">----</a></li>
+            {% for board in all_boards %}
+            <li><a href="#">{{ board }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script src="{% static 'trelloBoard/board.js' %}"></script>
+</div>
+
+{% endblock%}
